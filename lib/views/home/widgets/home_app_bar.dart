@@ -1,8 +1,17 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:coins_app/core/core.dart';
 
-class HomeAppBar extends StatelessWidget {
+class HomeAppBar extends StatefulWidget {
   const HomeAppBar({Key? key}) : super(key: key);
+
+  @override
+  State<HomeAppBar> createState() => _HomeAppBarState();
+}
+
+class _HomeAppBarState extends State<HomeAppBar> {
+  bool exchangeCoin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +32,7 @@ class HomeAppBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text.rich(
               TextSpan(
@@ -39,6 +49,27 @@ class HomeAppBar extends StatelessWidget {
                           fontFamily: "AnekMalayalam-Bold")),
                 ],
               ),
+            ),
+            Switch(
+              value: exchangeCoin,
+              activeColor: Colors.green,
+              inactiveThumbColor: Colors.red,
+              inactiveTrackColor: Colors.red,
+              activeThumbImage: ResizeImage(
+                AssetImage("images/brasilCoin.png"),
+                width: 35,
+                height: 35,
+              ),
+              inactiveThumbImage: ResizeImage(
+                AssetImage("images/estadosUnidosCoin.png"),
+                width: 35,
+                height: 35,
+              ),
+              onChanged: (value) {
+                setState(() {
+                  exchangeCoin = value;
+                });
+              },
             )
           ],
         ),
