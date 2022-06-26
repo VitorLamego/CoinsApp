@@ -100,10 +100,10 @@ class CryptoSheet extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.topCenter,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: Hero(
-              tag: cryptoInfo.symbol,
+          child: Hero(
+            tag: cryptoInfo.symbol,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
               child: Image.network(
                 cryptoInfo.imageUrl,
                 loadingBuilder: (

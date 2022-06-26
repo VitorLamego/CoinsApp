@@ -58,10 +58,10 @@ class _HomeCryptoCoinsState extends State<HomeCryptoCoins> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Hero(
-                    tag: widget.cryptoInfo.symbol,
+                Hero(
+                  tag: widget.cryptoInfo.symbol,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
                     child: Image.network(
                       widget.cryptoInfo.imageUrl,
                       loadingBuilder: (

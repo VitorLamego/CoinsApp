@@ -2,13 +2,17 @@
 
 import 'package:coins_app/controller/home_controller.dart';
 import 'package:coins_app/models/user.dart';
+import 'package:coins_app/services/home_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeMyAccount extends StatefulWidget {
-  const HomeMyAccount({Key? key, required this.controller}) : super(key: key);
+  const HomeMyAccount(
+      {Key? key, required this.controller, required this.service})
+      : super(key: key);
 
   final HomeController controller;
+  final HomeService service;
 
   @override
   State<HomeMyAccount> createState() => _HomeMyAccountState();
@@ -72,7 +76,7 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                 builder: (BuildContext context, bool isDolarSelected,
                     Widget? child) {
                   return FutureBuilder(
-                    future: widget.controller.setUserData(),
+                    future: widget.service.setUserData(),
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done &&
                           viewBalance) {
@@ -103,7 +107,7 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                   );
                 }),
             FutureBuilder(
-              future: widget.controller.setUserData(),
+              future: widget.service.setUserData(),
               builder: ((context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     viewBalance) {
