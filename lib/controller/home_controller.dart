@@ -54,6 +54,16 @@ class HomeController {
     return formatValue(double.parse(brasilValue));
   }
 
+  String convertFeeToUSDT(double value) {
+    double usdtConvert = 5.24;
+
+    if (isDolarSelected.value) {
+      return formatValue((value / usdtConvert));
+    }
+
+    return formatValue(value);
+  }
+
   String formatValue(double price) {
     final usCurrency = NumberFormat.simpleCurrency(locale: "en_US");
     final ptCurrency = NumberFormat.simpleCurrency(locale: "pt_BR");
