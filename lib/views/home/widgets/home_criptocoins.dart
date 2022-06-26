@@ -45,9 +45,40 @@ class _HomeCryptoCoinsState extends State<HomeCryptoCoins> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(widget.cryptoInfo.imageUrl),
-                  ),
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Hero(
+                        tag: widget.cryptoInfo.symbol,
+                        child: Image.network(
+                          widget.cryptoInfo.imageUrl,
+                          loadingBuilder: (
+                            BuildContext context,
+                            Widget child,
+                            ImageChunkEvent? loadingProgress,
+                          ) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+
+                            return SizedBox(
+                              width: 40,
+                              height: 40.0,
+                              child: Shimmer.fromColors(
+                                baseColor: Color(0xFFEBEBF4),
+                                highlightColor: Color(0xFFF4F4F4),
+                                child: Container(
+                                  color: Color(0xFFFFFFFF),
+                                  height: 40,
+                                  width: 40,
+                                ),
+                              ),
+                            );
+                          },
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.fill,
+                        ),
+                      )),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: size.width * 0.02),
                     child: SizedBox(
