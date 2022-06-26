@@ -15,6 +15,7 @@ class HomeMyAccount extends StatefulWidget {
 }
 
 class _HomeMyAccountState extends State<HomeMyAccount> {
+  bool viewBalance = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,10 +53,16 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                   style: TextStyle(fontSize: 16),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      viewBalance = !viewBalance;
+                    });
+                  },
+                  icon: viewBalance
+                      ? Icon(Icons.visibility_off)
+                      : Icon(Icons.visibility),
                   padding: const EdgeInsets.all(0),
-                  constraints: const BoxConstraints(),
+                  constraints: BoxConstraints(minWidth: size.width * 0.1),
                   iconSize: 20,
                 ),
               ],
@@ -67,7 +74,8 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                   return FutureBuilder(
                     future: widget.controller.setUserData(),
                     builder: ((context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          viewBalance) {
                         return Text(
                           widget.controller.convertCoinToUSDT(
                               (snapshot.data as User).balance),
@@ -97,7 +105,8 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
             FutureBuilder(
               future: widget.controller.setUserData(),
               builder: ((context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    viewBalance) {
                   return Text(
                     "ContaID: " + (snapshot.data as User).walletId,
                     style: TextStyle(
