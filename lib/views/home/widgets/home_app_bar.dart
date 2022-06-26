@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:coins_app/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:coins_app/core/core.dart';
 
 class HomeAppBar extends StatefulWidget {
-  const HomeAppBar({Key? key}) : super(key: key);
+  const HomeAppBar({Key? key, required this.controller}) : super(key: key);
+
+  final HomeController controller;
 
   @override
   State<HomeAppBar> createState() => _HomeAppBarState();
@@ -68,6 +71,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
               onChanged: (value) {
                 setState(() {
                   exchangeCoin = value;
+                  widget.controller.isDolarSelected.value = !value;
                 });
               },
             )

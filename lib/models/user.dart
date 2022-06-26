@@ -4,7 +4,7 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 
 class User {
   String walletId;
-  double balance;
+  String balance;
 
   User({required this.walletId, required this.balance});
 

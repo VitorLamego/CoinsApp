@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:coins_app/controller/home_controller.dart';
 import 'package:coins_app/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeMyAccount extends StatefulWidget {
   const HomeMyAccount({Key? key, required this.controller}) : super(key: key);
@@ -57,24 +60,40 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                 ),
               ],
             ),
-            FutureBuilder(
-              future: widget.controller.setUserData(),
-              builder: ((context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Text(
-                    "R\$" + (snapshot.data as User).balance.toString(),
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontFamily: "AnekMalayalam-Bold",
-                      fontWeight: FontWeight.w600,
-                    ),
+            ValueListenableBuilder(
+                valueListenable: widget.controller.isDolarSelected,
+                builder: (BuildContext context, bool isDolarSelected,
+                    Widget? child) {
+                  return FutureBuilder(
+                    future: widget.controller.setUserData(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Text(
+                          widget.controller.convertCoinToUSDT(
+                              (snapshot.data as User).balance),
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontFamily: "AnekMalayalam-Bold",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      }
+                      return SizedBox(
+                        width: 100,
+                        height: 30.0,
+                        child: Shimmer.fromColors(
+                          baseColor: Color(0xFFEBEBF4),
+                          highlightColor: Color(0xFFF4F4F4),
+                          child: Container(
+                            color: Colors.grey.shade200,
+                            height: 30,
+                            width: 100,
+                          ),
+                        ),
+                      );
+                    }),
                   );
-                }
-                return Center(
-                  child: Text(""),
-                );
-              }),
-            ),
+                }),
             FutureBuilder(
               future: widget.controller.setUserData(),
               builder: ((context, snapshot) {
@@ -87,8 +106,18 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                         fontWeight: FontWeight.w800),
                   );
                 }
-                return Center(
-                  child: Text(""),
+                return SizedBox(
+                  width: 200,
+                  height: 10,
+                  child: Shimmer.fromColors(
+                    baseColor: Color(0xFFEBEBF4),
+                    highlightColor: Color(0xFFF4F4F4),
+                    child: Container(
+                      color: Colors.grey.shade200,
+                      height: 20,
+                      width: 200,
+                    ),
+                  ),
                 );
               }),
             ),

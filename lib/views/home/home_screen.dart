@@ -2,7 +2,6 @@
 
 import 'package:coins_app/controller/home_controller.dart';
 import 'package:coins_app/views/home/widgets/home_app_bar.dart';
-import 'package:coins_app/views/home/widgets/home_criptocoins.dart';
 import 'package:coins_app/views/home/widgets/home_my_account.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height * 0.3,
             child: Stack(
               children: [
-                const HomeAppBar(),
+                HomeAppBar(controller: controller),
                 HomeMyAccount(
                   controller: controller,
                 ),
