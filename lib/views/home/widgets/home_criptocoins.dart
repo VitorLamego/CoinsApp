@@ -1,0 +1,74 @@
+import 'package:coins_app/models/criptomoedas.dart';
+import 'package:flutter/material.dart';
+
+class HomeCryptoCoins extends StatefulWidget {
+  const HomeCryptoCoins({Key? key, required this.cryptoInfo}) : super(key: key);
+
+  final Criptomoeda cryptoInfo;
+
+  @override
+  State<HomeCryptoCoins> createState() => _HomeCryptoCoinsState();
+}
+
+class _HomeCryptoCoinsState extends State<HomeCryptoCoins> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height * 0.1,
+      width: size.width * 0.8,
+      margin: EdgeInsets.symmetric(vertical: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+              offset: Offset(0, 4),
+              spreadRadius: 0,
+              blurRadius: 4,
+              color: Colors.black.withOpacity(0.15))
+        ],
+      ),
+      child: MaterialButton(
+        onPressed: () {},
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(widget.cryptoInfo.imageUrl),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 5),
+                  Text(
+                    widget.cryptoInfo.symbol,
+                    style: TextStyle(fontWeight: FontWeight.w800),
+                  ),
+                  Text(
+                    widget.cryptoInfo.name,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+              child: Icon(
+                Icons.auto_graph,
+                color: Colors.green,
+              ),
+            ),
+            Text("R\$ ${widget.cryptoInfo.cotation}")
+          ],
+        ),
+      ),
+    );
+  }
+}

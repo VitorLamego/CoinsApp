@@ -1,7 +1,11 @@
+import 'package:coins_app/controller/home_controller.dart';
+import 'package:coins_app/models/user.dart';
 import 'package:flutter/material.dart';
 
 class HomeMyAccount extends StatefulWidget {
-  const HomeMyAccount({Key? key}) : super(key: key);
+  const HomeMyAccount({Key? key, required this.controller}) : super(key: key);
+
+  final HomeController controller;
 
   @override
   State<HomeMyAccount> createState() => _HomeMyAccountState();
@@ -53,21 +57,41 @@ class _HomeMyAccountState extends State<HomeMyAccount> {
                 ),
               ],
             ),
-            const Text(
-              "R\$ 12.957,21",
-              style: TextStyle(
-                fontSize: 22,
-                fontFamily: "AnekMalayalam-Bold",
-                fontWeight: FontWeight.w600,
-              ),
+            FutureBuilder(
+              future: widget.controller.setUserData(),
+              builder: ((context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    "R\$" + (snapshot.data as User).balance.toString(),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontFamily: "AnekMalayalam-Bold",
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                }
+                return Center(
+                  child: Text(""),
+                );
+              }),
             ),
-            const Text(
-              "ContaID: gfgfg-fgfg-gfg-fgfg-34556",
-              style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w800),
-            )
+            FutureBuilder(
+              future: widget.controller.setUserData(),
+              builder: ((context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    "ContaID: " + (snapshot.data as User).walletId,
+                    style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w800),
+                  );
+                }
+                return Center(
+                  child: Text(""),
+                );
+              }),
+            ),
           ],
         ),
       ),
